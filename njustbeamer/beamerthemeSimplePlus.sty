@@ -1,0 +1,198 @@
+%-------------------------------------------------------------
+%  Package: beamertheme-SimplePlus
+%  Version: 1.1, 2025-01-07
+%  Link: https://github.com/pm25/SimplePlus-BeamerTheme
+%  This is free and unencumbered software released into the
+%  public domain; see <http://unlicense.org> for details.
+%  Adapted for NJUST (Nanjing University of Science & Technology)
+%-------------------------------------------------------------
+
+%--------------------------------------
+%  Beamer Settings
+%--------------------------------------
+
+\mode<presentation>
+
+%--------------------------------------
+%  Color Settings
+%--------------------------------------
+
+\definecolor{MutedONE}{HTML}{0070C0}
+\definecolor{MutedTWO}{HTML}{990099}
+\definecolor{MutedTHREE}{HTML}{ECECEC}
+\definecolor{MutedBlack}{HTML}{F2F2F2}
+\definecolor{MediumONE}{HTML}{F0F0F0}
+\definecolor{MediumTWO}{HTML}{5FBCAA}
+\definecolor{MediumTHREE}{HTML}{035073}
+\definecolor{MediumBlack}{HTML}{384259}
+\definecolor{BLACK}{HTML}{000000}
+\definecolor{sectionbox}{HTML}{990099}
+
+\definecolor{Color1st}{HTML}{a159a6}
+\definecolor{Color2nd}{HTML}{c080b7}
+\definecolor{Color3rd}{HTML}{d2a5d2}
+\definecolor{Color4th}{HTML}{e4bbe8}
+\definecolor{Color5th}{HTML}{ebd1f2}
+
+\definecolor{Colorbg}{HTML}{F0F0F0}
+
+\usecolortheme[named=BLACK]{structure}
+
+\setbeamercolor{titlelike}{parent=structure}
+\setbeamercolor{block title}{fg=Color1st,bg=Color5th}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block title example}{fg=white,bg=MutedTWO}
+\setbeamercolor{block body example}{fg=black,bg=MediumONE}
+\setbeamercolor{block title alerted}{fg=white,bg=MutedTWO}
+\setbeamercolor{block body alerted}{fg=black,bg=MediumONE}
+
+%--------------------------------------
+%  Font Settings
+%--------------------------------------
+
+\usepackage{fontspec}
+\RequirePackage[UTF8]{ctex}
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+\setCJKmainfont{Microsoft YaHei}
+\setCJKsansfont{Microsoft YaHei}
+\setCJKmonofont{Microsoft YaHei}
+\setbeamerfont{structure}{family=\sffamily,series=\mdseries}
+
+\setbeamerfont{title}{size=\LARGE,series=\bfseries,parent=structure}
+\setbeamerfont{subtitle}{size=\normalsize,parent=title}
+
+\setbeamerfont{date}{size =\scriptsize,series=\mdseries,parent=structure}
+\setbeamerfont{author}{size =\large,series=\mdseries,parent=structure}
+\setbeamerfont{institute}{size =\scriptsize,series=\mdseries,parent=structure}
+
+\setbeamerfont{section in toc}{size=\large,series=\bfseries,parent=structure}
+\setbeamerfont{section in head/foot}{size=\tiny,parent=structure}
+\setbeamerfont{subsection in toc}{size=\small,series=\mdseries,parent={section in toc}}
+
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries,parent=structure}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\large}
+
+\setbeamerfont{caption}{size=\footnotesize}
+\setbeamerfont{item}{parent=structure,series=\mdseries}
+\setbeamerfont{block title}{size=\large,series=\mdseries,parent={structure,block body}}
+
+%--------------------------------------
+%  Inner Theme Settings
+%--------------------------------------
+
+\pgfdeclareverticalshading[lower.bg,upper.bg]{bmb@transition}{200cm}{%
+color(0pt)=(lower.bg); color(2pt)=(lower.bg); color(4pt)=(lower.bg)}
+
+\setbeamersize{text margin left=1.5em,text margin right=1.5em}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\makeatletter
+\setbeamertemplate{block begin}{
+  \vskip.3ex
+  \begin{lrbox}{\@tempboxa}
+    \begin{minipage}{\textwidth}
+      \begin{beamercolorbox}[colsep*=.3ex]{block title}
+        {\usebeamerfont{block title}\bfseries\insertblocktitle}
+      \end{beamercolorbox}%
+      {\ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip4pt}}%
+      \begin{beamercolorbox}[colsep*=.3ex,vmode]{block body}%
+        \ifbeamercolorempty[bg]{block body}{\vrule width 0pt height .5em depth .25ex}{}%
+}
+\setbeamertemplate{block end}{
+      \end{beamercolorbox}
+    \end{minipage}
+  \end{lrbox}
+  \usebox{\@tempboxa}
+}
+
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{enumerate subitem}[default]
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize subitem}[circle]
+\setlength{\leftmargini}{1em}
+\setlength{\leftmarginii}{1em}
+
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}{}
+
+\newif\ifshowframetitle
+\showframetitletrue
+\newif\ifshowlogoline
+\showlogolinetrue
+\newif\ifshowsubsectiontitle
+\showsubsectiontitletrue
+
+\AtBeginSection[]{%
+    \showframetitletrue
+    \showsubsectiontitlefalse
+    \begin{frame}
+        \frametitle{目录}
+        \tableofcontents[currentsection]
+    \end{frame}
+    \showsubsectiontitletrue
+}
+
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\setbeamertemplate{frametitle}{%
+    \ifshowframetitle
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[fill=Color1st, text=white, font=\bfseries, inner sep=6pt] (sectionbox) at ([yshift=-1em,xshift=1.5em]current page.north west) {\insertsectionnumber};
+
+            \node[right=1.3cm of sectionbox, anchor=west, font=\bfseries\Large] (sectiontitle) at ([yshift=-1em]current page.north west) {\insertsection};
+
+            \ifx\insertsubsection\@empty\else
+                \ifshowsubsectiontitle
+                    \edef\subsectionnumber{\thesubsection}
+                    \edef\subsectiontitle{\insertsubsection}
+
+                    \node[below=0.2cm of sectiontitle.south west, anchor=west,yshift=-0.2cm, xshift=-1cm, font=\large\itshape] (subsectiontitle) {\textnormal{\subsectionnumber}\ \subsectiontitle};
+                \fi
+            \fi
+
+            \ifshowlogoline
+                \node[right=-0.2cm of current page.north east, anchor=north east] (logo) {\includegraphics[height=0.66cm]{njustbeamer/NJUSTtextlogo.png}};
+
+                \draw[thick, draw=gray, opacity=0.9] ([xshift=0.2cm]sectiontitle.east) -- ([xshift=-0.2cm]logo.west);
+            \fi
+        \end{tikzpicture}
+        \vspace*{1em}
+    \fi
+}
+
+\definecolor{titlebg}{RGB}{255, 255, 204}
+\definecolor{subtitlebg}{RGB}{238, 238, 238}
+
+\setbeamertemplate{title page}{%
+    \vspace{6em}
+    \begingroup
+    \centering
+    \begin{beamercolorbox}[sep=10pt,center]{title}
+        \usebeamerfont{title}\usebeamercolor[fg]{title}\color{Color1st}\inserttitle\par
+        \ifx\insertsubtitle\@empty%
+        \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+        \fi%
+    \end{beamercolorbox}%
+    \vskip0.5em\par
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+        \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \vskip-1em
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+        \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{date}
+        \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+    \endgroup
+    \vfill
+}
+
+\mode<all>
