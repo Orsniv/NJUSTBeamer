@@ -36,7 +36,7 @@
 
 \institute
 {
-    机械工程学院 \\
+    XXX教研室 \\
     南京理工大学
 }
 \date{\today}
@@ -88,7 +88,7 @@
         \coordinate (rectstart) at ([xshift=2em,yshift=1em]current page.south west);
         \fill[Color1st] (rectstart) rectangle ++(\textwidth-1em,30pt);
         \node[anchor=center,text=white,font=\large\itshape,text width=\textwidth,align=center
-        ] at ($(rectstart)+(0.5*\textwidth,14pt)$) {南京理工大学 \quad 机械工程学院};
+        ] at ($(rectstart)+(0.5*\textwidth,14pt)$) {南京理工大学 \quad XXX教研室};
     \end{tikzpicture}
 \end{frame}
 
@@ -155,46 +155,25 @@
 %------------------------------------------------
 
 \begin{frame}{左文右图}
-    \begin{columns}[c]
-        \column{.50\textwidth}
+    \njtextimageright{%
         \textbf{文字说明}
         \begin{itemize}
+            \item 使用 \texttt{\textbackslash njtextimageright} 命令
             \item 左侧放置文字内容
-            \item 支持列表、公式等元素
             \item 右侧放置配图
         \end{itemize}
-        \column{.50\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=\linewidth]{pic/01.jpg}
-            \caption{示例图片一}
-        \end{figure}
-    \end{columns}
+    }{pic/01.jpg}{示例图片一}
 \end{frame}
 
-\begin{frame}{左图右文}
-    \begin{columns}[c]
-        \column{.50\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=\linewidth]{pic/02.jpg}
-            \caption{示例图片二}
-        \end{figure}
-        \column{.50\textwidth}
+\begin{frame}{上文双图}
+    \njtexttopimages{%
         \textbf{文字说明}
-        \begin{enumerate}
-            \item 图片在左，文字在右
-            \item 适用于先图后文的场景
-        \end{enumerate}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{纯图片}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.75\textwidth]{pic/01.jpg}
-        \caption{全宽居中图片示例}
-    \end{figure}
+        \begin{itemize}
+            \item 使用 \texttt{\textbackslash njtexttopimages} 命令
+            \item 文字内容在上方
+            \item 两张图片并排置于下方
+        \end{itemize}
+    }{pic/01.jpg}{示例图片一}{pic/02.jpg}{示例图片二}
 \end{frame}
 
 %------------------------------------------------

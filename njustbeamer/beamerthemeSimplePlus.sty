@@ -141,22 +141,24 @@ color(0pt)=(lower.bg); color(2pt)=(lower.bg); color(4pt)=(lower.bg)}
 \setbeamertemplate{frametitle}{%
     \ifshowframetitle
         \begin{tikzpicture}[remember picture, overlay]
-            \node[fill=Color1st, text=white, font=\bfseries, inner sep=6pt] (sectionbox) at ([yshift=-1em,xshift=1.5em]current page.north west) {\insertsectionnumber};
-
-            \node[right=1.3cm of sectionbox, anchor=west, font=\bfseries\Large] (sectiontitle) at ([yshift=-1em]current page.north west) {\insertsection};
+            \ifx\insertsection\@empty
+                \node[fill=Color1st, text=white, font=\bfseries, inner sep=6pt] (sectionbox) at ([yshift=-1em,xshift=1.5em]current page.north west) {};
+                \node[right=1.3cm of sectionbox, anchor=west, font=\bfseries\Large] (sectiontitle) at ([yshift=-1em]current page.north west) {};
+            \else
+                \node[fill=Color1st, text=white, font=\bfseries, inner sep=6pt] (sectionbox) at ([yshift=-1em,xshift=1.5em]current page.north west) {\insertsectionnumber};
+                \node[right=1.3cm of sectionbox, anchor=west, font=\bfseries\Large] (sectiontitle) at ([yshift=-1em]current page.north west) {\insertsection};
+            \fi
 
             \ifx\insertsubsection\@empty\else
                 \ifshowsubsectiontitle
                     \edef\subsectionnumber{\thesubsection}
                     \edef\subsectiontitle{\insertsubsection}
-
                     \node[below=0.2cm of sectiontitle.south west, anchor=west,yshift=-0.2cm, xshift=-1cm, font=\large\itshape] (subsectiontitle) {\textnormal{\subsectionnumber}\ \subsectiontitle};
                 \fi
             \fi
 
             \ifshowlogoline
                 \node[right=-0.2cm of current page.north east, anchor=north east] (logo) {\includegraphics[height=0.66cm]{njustbeamer/NJUSTtextlogo.png}};
-
                 \draw[thick, draw=gray, opacity=0.9] ([xshift=0.2cm]sectiontitle.east) -- ([xshift=-0.2cm]logo.west);
             \fi
         \end{tikzpicture}
@@ -193,6 +195,47 @@ color(0pt)=(lower.bg); color(2pt)=(lower.bg); color(4pt)=(lower.bg)}
     {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
     \endgroup
     \vfill
+}
+
+%--------------------------------------
+%  Image Layout Commands
+%--------------------------------------
+
+% 左文右图: text on left, image on right
+\newcommand{\njtextimageright}[3]{%
+    \begin{columns}[c]
+        \column{.48\textwidth}
+        #1
+        \column{.48\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{#2}
+            \caption{#3}
+        \end{figure}
+    \end{columns}
+}
+
+% 上文下图（双图）: text on top (max ~2 lines), two images side-by-side below
+\newcommand{\njtexttopimages}[5]{%
+    \begin{minipage}[t]{\textwidth}
+        \vspace{0pt}%
+        #1
+    \end{minipage}
+    \vspace{0.3em}
+    \begin{columns}[c]
+        \column{.48\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{#2}
+            \caption{#3}
+        \end{figure}
+        \column{.48\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{#4}
+            \caption{#5}
+        \end{figure}
+    \end{columns}
 }
 
 \mode<all>
